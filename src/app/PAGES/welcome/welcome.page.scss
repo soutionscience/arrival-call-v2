@@ -2,7 +2,7 @@
 .header{
     color:white;
     min-height: 400px;
-    .title{
+    .mytitle{
     color: white;
     }
     .top-toolbar{
@@ -16,6 +16,20 @@
 
     }
 }
+.body{
+    color: black;
+    .myForm{
+        color: black;
+    }
+}
 
    
 }
+// ion-select{
+//     --color: white;
+//     background: white;
+// }
+// ion-select-option{
+//     color: white;
+//     --color: white;
+// }
