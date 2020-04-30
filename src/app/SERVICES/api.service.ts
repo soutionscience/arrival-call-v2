@@ -17,7 +17,7 @@ export class ApiService {
    return this.http.get('https://arrival-call.herokuapp.com/api/country')
 
 }
-public sortData(data):Observable<any>{
+public sortData= (data):Observable<any>=>{
  return  data.forEach(element => {
      return {countryFlag: element.flag, number: element.callingCode}
    //return ob
