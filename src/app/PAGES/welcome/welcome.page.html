@@ -13,13 +13,23 @@
       </ion-toolbar>
     </ion-header></div>
     <div class="mybody">
-      <ion-item color="secondary-contrast">
-        <ion-select placeholder="S">
-          <ion-select-option *ngFor="let c of countries" >{{c.number}}</ion-select-option>
-          <ion-select-option value="m">Male</ion-select-option>
+  <form [formGroup]="numberForm">
+      <ion-item color="secondary-contrast" lines="none" *ngIf="countries.length>0">
+        <ion-select placeholder="+1" lines="none" formControlName="ext">
+          <ion-select-option *ngFor="let c of countries" lines="none" >
+            <ion-icon [src]="c.image"></ion-icon>
+           + {{c.number}}
+           </ion-select-option>
+    
         </ion-select>
-        <ion-input></ion-input>
+        <ion-input placeholder="enter your number" formControlName="number"></ion-input>
+
       </ion-item>
+      <ion-item lines="none" color="seconday-contrast"> 
+        <ion-button type="button" color="seconday" slot="end" shape="round" 
+         (click)="submit()">Submit</ion-button>
+      </ion-item>
+    </form>
 
  </div>
 

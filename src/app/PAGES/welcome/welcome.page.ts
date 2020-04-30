@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryPickerService } from 'ngx-country-picker';
 import { ApiService } from 'src/app/SERVICES/api.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StorageService } from 'src/app/SERVICES/storage.service';
 
 @Component({
   selector: 'app-welcome',
@@ -8,22 +10,38 @@ import { ApiService } from 'src/app/SERVICES/api.service';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-  contries: {countryFlag: string, number: number}[]=[];
+  countries: {image: string, number: number}[]=[];
+  numberForm: FormGroup
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private fb: FormBuilder, private storage: StorageService ) { }
 
   ngOnInit() {
     this.pickCountry();
+    this.createForm()
     
   }
   pickCountry(){
-    console.log('called')
-this.api.getData().subscribe(resp=>{
-console.log('resp', resp)
-  
+    this.api.getData()
+    .subscribe(resp=>{
+       this.countries = resp
 })
-console.log('countries ', this.contries[0])
+}
 
+createForm(){
+  this.numberForm = this.fb.group({
+    ext: ['', [Validators.required]],
+    number:['', [Validators.required]]
+  })
+}
+
+submit(){
+  this.storage.saveUser(this.numberForm.value)
+  this.getUser()
 
 }
+getUser(){
+  this.storage.getUser()
+  .then((resp)=> console.log('user is', resp))
+}
+
 }
