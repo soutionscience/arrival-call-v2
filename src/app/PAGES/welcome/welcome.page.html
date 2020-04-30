@@ -14,8 +14,8 @@
     </ion-header></div>
     <div class="mybody">
       <ion-item color="secondary-contrast">
-        <ion-select placeholder="Select One">
-          <ion-select-option value="f" >Female</ion-select-option>
+        <ion-select placeholder="S">
+          <ion-select-option *ngFor="let c of countries" >{{c.number}}</ion-select-option>
           <ion-select-option value="m">Male</ion-select-option>
         </ion-select>
         <ion-input></ion-input>

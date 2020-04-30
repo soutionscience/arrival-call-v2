@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryPickerService } from 'ngx-country-picker';
+import { ApiService } from 'src/app/SERVICES/api.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,19 +8,22 @@ import { CountryPickerService } from 'ngx-country-picker';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-  contries: any[];
+  contries: {countryFlag: string, number: number}[]=[];
 
-  constructor(private countryPicker: CountryPickerService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.pickCountry()
+    this.pickCountry();
+    
   }
   pickCountry(){
     console.log('called')
-    this.countryPicker.getCountries()
-    .subscribe(resp=> console.log('resp', resp),error=>{
-      console.log('is there an error ', error)
-    })
-  }
+this.api.getData().subscribe(resp=>{
+console.log('resp', resp)
+  
+})
+console.log('countries ', this.contries[0])
 
+
+}
 }
