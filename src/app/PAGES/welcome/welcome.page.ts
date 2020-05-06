@@ -3,6 +3,8 @@ import { CountryPickerService } from 'ngx-country-picker';
 import { ApiService } from 'src/app/SERVICES/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/SERVICES/storage.service';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome',
@@ -13,7 +15,8 @@ export class WelcomePage implements OnInit {
   countries: {image: string, number: number}[]=[];
   numberForm: FormGroup
 
-  constructor(private api: ApiService, private fb: FormBuilder, private storage: StorageService ) { }
+  constructor(private api: ApiService, private fb: FormBuilder, private storage: StorageService,
+    private navCtrl: NavController ) { }
 
   ngOnInit() {
     this.pickCountry();
@@ -36,7 +39,7 @@ createForm(){
 
 submit(){
   this.storage.saveUser(this.numberForm.value)
-  this.getUser()
+this.navCtrl.navigateForward('home')
 
 }
 getUser(){

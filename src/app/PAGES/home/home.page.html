@@ -1,9 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+<ion-header color="primary" class="my-header">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="mytitle" size="small">Where to</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="search" color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="mycols"></ion-col>
+        <ion-col size="10">
+          <ion-searchbar placeholder="starting point?"></ion-searchbar>
 
+        </ion-col>
+      
+        <ion-col size="1">
+         
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="mycols"></ion-col>
+        <ion-col size="10">
+          <ion-searchbar placeholder="call me when we reach?"></ion-searchbar>
+
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon name="add-outline" size="large"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+
+
+</ion-header>
 <ion-content>
 
 </ion-content>
