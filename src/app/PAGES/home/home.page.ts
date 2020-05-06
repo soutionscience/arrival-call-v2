@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/SERVICES/storage.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 
 @Component({
   selector: 'app-home',
@@ -7,16 +9,27 @@ import { StorageService } from 'src/app/SERVICES/storage.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  location: string[];
 
-  constructor( private storageService: StorageService ) { }
+  constructor( private storageService: StorageService, private geoLocation: Geolocation ) { }
   user:{} ={}
 
   ngOnInit() {
     this.getUser()
-    console.log('home!!', this.user)
+     this.getLocation()
   }
   getUser(){
     this.storageService.getUser().then((resp)=> {this.user = resp; console.log('user ', this.user)})
   }
+  getLocation(){
+    this.geoLocation.getCurrentPosition().then((resp)=>{
+     console.log('locations is' ,resp)
+
+    }).catch((error)=>{
+      console.log("error getting location", error)
+    })
+
+  }
+  
 
 }

@@ -13,15 +13,24 @@ import { NavController } from '@ionic/angular';
 })
 export class WelcomePage implements OnInit {
   countries: {image: string, number: number}[]=[];
-  numberForm: FormGroup
+  numberForm: FormGroup;
+  user: string [];
+  isRegisted: boolean;
 
   constructor(private api: ApiService, private fb: FormBuilder, private storage: StorageService,
     private navCtrl: NavController ) { }
 
   ngOnInit() {
+
+    this.getUser();
+    this.prepareHomePage()
+
+    
+  }
+  prepareHomePage(){
     this.pickCountry();
     this.createForm()
-    
+
   }
   pickCountry(){
     this.api.getData()
@@ -44,7 +53,19 @@ this.navCtrl.navigateForward('home')
 }
 getUser(){
   this.storage.getUser()
-  .then((resp)=> console.log('user is', resp))
+  .then((resp)=>{
+    //this.storage.isRegisted? this.navCtrl.navigateForward('home'): this.prepareHomePage()
+  })
+}
+checkIfRegistered():boolean{
+  return true
+  this.storage.getUser()
+  .then((resp)=>{
+    if(resp == null ){
+      return false;
+
+    }return true
+  })
 }
 
 }

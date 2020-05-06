@@ -18,8 +18,14 @@ private user: {number: string, ext: string}
   getUser = ()=>{
     return this.storage.get('user')
     .then((resp)=>{
-      this.user = resp !=null? resp: ''
+      this.user = resp !=null? resp: null;
       return this.user;
     })
+  }
+  // is user in system
+  isRegisted = (): boolean=>{
+  if(this.user) return true;
+  return false
+
   }
 }
