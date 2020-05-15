@@ -24,8 +24,18 @@
       <ion-row>
         <ion-col class="mycols"></ion-col>
         <ion-col size="10">
-          <ion-searchbar placeholder="call me when we reach?"></ion-searchbar>
-
+          <ion-searchbar #searchBar placeholder="call me when we reach?" (keyup)="search(searchBar.value)">
+            
+          </ion-searchbar>
+          <ion-list *ngIf="places">
+            <ion-item lines="none" 
+            *ngFor="let p of places" 
+            (click)="selectPlace(p)">
+        
+            {{p.name}}
+        
+            </ion-item>
+          </ion-list>
         </ion-col>
         <ion-col size="1">
           <ion-icon name="add-outline" size="large"></ion-icon>
@@ -37,6 +47,8 @@
 
 </ion-header>
 <ion-content>
+
+  <div #map></div>
   test me
 
 </ion-content>

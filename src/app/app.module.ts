@@ -11,6 +11,9 @@ import { AppComponent } from './app.component';
 import { CountryPickerModule } from 'ngx-country-picker';
 import { IonicStorageModule } from '@ionic/storage';
 
+//maps stuff
+import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +21,11 @@ import { IonicStorageModule } from '@ionic/storage';
   imports: [BrowserModule, IonicModule.forRoot(), 
     AppRoutingModule, 
     CountryPickerModule.forRoot(),
-  IonicStorageModule.forRoot()],
+  IonicStorageModule.forRoot(),
+  AgmCoreModule.forRoot(
+    {apiKey: 'AIzaSyC17wNTqyVviI5lBPxF3S3mxPGkrXMPAlM'}
+  )],
+
   providers: [
     StatusBar,
     SplashScreen,

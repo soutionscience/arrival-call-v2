@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StorageService } from 'src/app/SERVICES/storage.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import {} from 'google-maps';
+
 
 
 @Component({
@@ -9,14 +11,37 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  location: string[];
+location: string[];
+map: any;
+service: any;
+infowindow: any;
+places: any [];
+
+@ViewChild('map',{static: false}) mapElement: ElementRef
 
   constructor( private storageService: StorageService, private geoLocation: Geolocation ) { }
+
   user:{} ={}
 
   ngOnInit() {
-    this.getUser()
+    
+  }
+  ionViewWillEnter(){
+  this.initializeMap();
+  this.getUser()
      this.getLocation()
+  }
+  initializeMap(){
+    console.log('onview');
+   let sydney  = new google.maps.LatLng(-33.867, 151.195);
+   this.infowindow = new google.maps.InfoWindow();
+   this.map = new google.maps.Map(
+    this.mapElement.nativeElement,
+    {center: sydney, zoom: 15}
+  )
+ this.service = new google.maps.places.PlacesService(this.map)
+
+
   }
   getUser(){
     this.storageService.getUser().then((resp)=> {this.user = resp; console.log('user ', this.user)})
@@ -29,6 +54,27 @@ export class HomePage implements OnInit {
       console.log("error getting location", error)
     })
 
+  }
+
+  search(p){
+    console.log('getting ', p);
+    let request ={
+      query: p,
+      fields: ['name', 'geometry']
+    }
+
+    this.service.findPlaceFromQuery(request, (results, status)=>{
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        this.places = results;
+        //console.log(this.places[0].name)
+      }else{
+        console.log('error getting request')
+      }
+    })
+
+  }
+  selectPlace(p){
+    console.log('me and me ', p)
   }
   
 
