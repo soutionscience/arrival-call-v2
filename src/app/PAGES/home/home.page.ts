@@ -13,6 +13,7 @@ import {} from 'google-maps';
 export class HomePage implements OnInit {
 location: string[];
 map: any;
+marker: any;
 service: any;
 infowindow: any;
 places: any [];
@@ -27,18 +28,24 @@ places: any [];
     
   }
   ionViewWillEnter(){
-  this.initializeMap();
+ // this.initializeMap();
   this.getUser()
-     this.getLocation()
+ this.getLocation()
   }
-  initializeMap(){
-    console.log('onview');
-   let sydney  = new google.maps.LatLng(-33.867, 151.195);
+  initializeMap(lat, lng){
+
+   let userLocation  = new google.maps.LatLng(lat, lng);
    this.infowindow = new google.maps.InfoWindow();
    this.map = new google.maps.Map(
     this.mapElement.nativeElement,
-    {center: sydney, zoom: 15}
-  )
+    {center: userLocation, zoom: 15}
+  );
+  this.marker = new google.maps.Marker({
+    position: userLocation,
+    map: this.map,
+    title: 'You'
+
+  })
  this.service = new google.maps.places.PlacesService(this.map)
 
 
@@ -48,9 +55,12 @@ places: any [];
   }
   getLocation(){
     this.geoLocation.getCurrentPosition().then((resp)=>{
-     console.log('locations is' ,resp)
+    let lat = resp.coords.latitude;
+    let lng = resp.coords.longitude
+    this.initializeMap(lat, lng)
 
     }).catch((error)=>{
+      // launch turn on internet connection pop up or user denied geolocation
       console.log("error getting location", error)
     })
 
