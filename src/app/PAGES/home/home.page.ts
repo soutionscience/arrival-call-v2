@@ -13,7 +13,7 @@ import {} from 'google-maps';
 export class HomePage implements OnInit {
 location: string[];
 map: any;
-marker: any;
+markers: any [] =[];
 service: any;
 infowindow: any;
 places: any [];
@@ -40,12 +40,13 @@ places: any [];
     this.mapElement.nativeElement,
     {center: userLocation, zoom: 15}
   );
-  this.marker = new google.maps.Marker({
+ let marker = new google.maps.Marker({
     position: userLocation,
     map: this.map,
     title: 'You'
 
   })
+  this.markers.push(marker)
  this.service = new google.maps.places.PlacesService(this.map)
 
 
@@ -72,7 +73,7 @@ places: any [];
       query: p,
       fields: ['name', 'geometry']
     }
-
+    this.service = new google.maps.places.PlacesService(this.map)
     this.service.findPlaceFromQuery(request, (results, status)=>{
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.places = results;
@@ -84,7 +85,16 @@ places: any [];
 
   }
   selectPlace(p){
-    console.log('me and me ', p)
+   // console.log(p);
+    this.map.setCenter(p.geometry.location);
+    this.map.setZoom(15)
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: p.geometry.location,
+      animation: google.maps.Animation.DROP
+    })
+    //.log('what is in ', this.markers)
+    this.markers.push(marker)
   }
   
 
