@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { StorageService } from 'src/app/SERVICES/storage.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {} from 'google-maps';
+import { ActionSheetController } from '@ionic/angular';
 
 
 
@@ -24,7 +25,8 @@ places: any [];
 @ViewChild('map',{static: false}) mapElement: ElementRef
 
   constructor( private storageService: StorageService, 
-    private geoLocation: Geolocation) { 
+    private geoLocation: Geolocation,
+    public actionSheet: ActionSheetController) { 
 
   }
 
@@ -106,6 +108,7 @@ places: any [];
          this.map.setCenter(result.geometry.location);
          this.map.setZoom(15);
          this.places =[];
+         this.presentActionSheet()
 
       }else{
         console.log('place not found ')
@@ -114,6 +117,22 @@ places: any [];
 
 
     
+  }
+
+  async presentActionSheet(){
+    const actionSheet = await this.actionSheet.create({
+      header:'Confirm Call',
+      cssClass:'action-sheet',
+      buttons:[
+        {text: 'Call when i reach',
+         role: 'confirn',
+          icon:'phone',
+        handler: ()=>{
+      console.log('confirm')
+    }}
+      ]
+    })
+    await actionSheet.present()
   }
   
 
