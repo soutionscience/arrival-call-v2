@@ -14,15 +14,15 @@
       <ion-row>
         <ion-col class="mycols"></ion-col>
         <ion-col size="10">
-          <ion-searchbar #searchBar placeholder="call me when we reach?" (keyup)="search(searchBar.value)">
+          <ion-searchbar #searchBar placeholder="call me when we reach?" (keyup)="autoComplete(searchBar.value)">
             
           </ion-searchbar>
-          <ion-list *ngIf="places">
+          <ion-list *ngIf="autocompleteItems.length>0">
             <ion-item lines="none" 
-            *ngFor="let p of places" 
+            *ngFor="let p of autocompleteItems" 
             (click)="selectPlace(p)">
         
-            {{p.name}}
+            {{p.description}}
         
             </ion-item>
           </ion-list>
