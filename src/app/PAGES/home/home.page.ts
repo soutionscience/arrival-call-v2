@@ -18,18 +18,14 @@ service: any;
 infowindow: any;
 places: any [];
 //auto complete stuff
-GoogleAutocomplete: google.maps.places.AutocompleteService;
-autocomplete: { input: string; };
-autocompleteItems: any[];
+
+
 
 @ViewChild('map',{static: false}) mapElement: ElementRef
 
   constructor( private storageService: StorageService, 
-    private geoLocation: Geolocation,
-    public zone: NgZone ) { 
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
+    private geoLocation: Geolocation) { 
+
   }
 
   user:{} ={}
@@ -76,35 +72,14 @@ autocompleteItems: any[];
     })
 
   }
- autoComplete(p){
-   !p? this.autocompleteItems =[]:
-   this.GoogleAutocomplete.getPlacePredictions({input:p}, (predictions, status)=>{
-     if(status = google.maps.places.PlacesServiceStatus.OK){
-       this.autocompleteItems =[];
-       this.zone.run(()=>{
-         predictions.forEach((prediction)=>{
-           this.autocompleteItems.push(prediction);
-           console.log(prediction)
-         })
-       })
-     }else{
-       console.log('error is noma')
-     }
 
-
-   })
- }
   search(p){
-    console.log('getting ', p);
-    let request ={
-      query: p,
-      fields: ['name', 'geometry']
-    }
-    this.service = new google.maps.places.PlacesService(this.map)
-    this.service.findPlaceFromQuery(request, (results, status)=>{
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
+    !p? this.places =[]:
+    this.service = new google.maps.places.AutocompleteService();
+    this.service.getQueryPredictions({input: p}, (results, status)=>{
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.places = results;
-        //console.log(this.places[0].name)
+        //.log(this.places[0])
       }else{
         console.log('error getting request')
       }
@@ -112,16 +87,32 @@ autocompleteItems: any[];
 
   }
   selectPlace(p){
-   // console.log(p);
-    this.map.setCenter(p.geometry.location);
-    this.map.setZoom(15)
-    let marker = new google.maps.Marker({
-      map: this.map,
-      position: p.geometry.location,
-      animation: google.maps.Animation.DROP
+
+   this.service = new google.maps.places.PlacesService(this.map)
+   var request = {
+    placeId: p.place_id,
+    fields: ['name', 'formatted_address', 'place_id', 'geometry']
+  };
+    console.log('the request ', request)
+    this.service.getDetails(request,(result, status)=>{
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+      
+        let marker = new google.maps.Marker({
+          map: this.map,
+          position: result.geometry.location,
+          animation: google.maps.Animation.DROP
+        })
+        this.markers.push(marker);
+         this.map.setCenter(result.geometry.location);
+         this.map.setZoom(15)
+
+      }else{
+        console.log('place not found ')
+      }
     })
-    //.log('what is in ', this.markers)
-    this.markers.push(marker)
+
+
+    
   }
   
 
