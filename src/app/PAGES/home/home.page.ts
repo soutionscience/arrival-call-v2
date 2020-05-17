@@ -104,7 +104,8 @@ places: any [];
         })
         this.markers.push(marker);
          this.map.setCenter(result.geometry.location);
-         this.map.setZoom(15)
+         this.map.setZoom(15);
+         this.places =[];
 
       }else{
         console.log('place not found ')
