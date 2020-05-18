@@ -8,13 +8,15 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ConfirmActionSheetComponent } from 'src/app/COMPONENTS/confirm-action-sheet/confirm-action-sheet.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    ConfirmActionSheetComponent
   ],
   providers:[Geolocation],
   declarations: [HomePage]

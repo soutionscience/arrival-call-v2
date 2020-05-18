@@ -124,12 +124,15 @@ places: any [];
       header:'Confirm Call',
       cssClass:'action-sheet',
       buttons:[
-        {text: 'Call when i reach',
+        {text: 'Confirm',
          role: 'confirn',
           icon:'phone',
         handler: ()=>{
       console.log('confirm')
-    }}
+    }},
+    {
+      text: "Call me "
+    }
       ]
     })
     await actionSheet.present()

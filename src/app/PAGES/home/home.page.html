@@ -18,12 +18,12 @@
             
           </ion-searchbar>
           <ion-list *ngIf="places">
-            <ion-item lines="none" 
+            <ion-item lines="none" detail class="full-width"
             *ngFor="let p of places" 
             (click)="selectPlace(p)">
-        
-            {{p.description}}
-        
+          <!-- <ion-label class="ion-text-wrap">{{p.description}}</ion-label> -->
+          <ion-button expand="full" fill="clear">{{p.description}}</ion-button>
+            
             </ion-item>
           </ion-list>
         </ion-col>
