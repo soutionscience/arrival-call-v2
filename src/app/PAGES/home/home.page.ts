@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { StorageService } from 'src/app/SERVICES/storage.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {} from 'google-maps';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
+import { async } from '@angular/core/testing';
+import { ConfirmActionSheetComponent } from 'src/app/COMPONENTS/confirm-action-sheet/confirm-action-sheet.component';
 
 
 
@@ -27,7 +29,8 @@ showAction: boolean
 
   constructor( private storageService: StorageService, 
     private geoLocation: Geolocation,
-    public actionSheet: ActionSheetController) { 
+    public actionSheet: ActionSheetController,
+    public modalCtrl: ModalController) { 
 
   }
 
@@ -142,7 +145,7 @@ showAction: boolean
       role: "",
       icon: 'time',
       handler: ()=>{
-        console.log('timer')
+        this.presentModal()
       }
     },
     {
@@ -157,6 +160,13 @@ showAction: boolean
     })
     await actionSheet.present()
   }
+
+ async presentModal(){
+   const modal = await this.modalCtrl.create({
+     component: ConfirmActionSheetComponent
+   });
+   return await modal.present()
+ }
   
 
 }

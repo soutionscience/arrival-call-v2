@@ -18,6 +18,7 @@ import { ConfirmActionSheetComponent } from 'src/app/COMPONENTS/confirm-action-s
     HomePageRoutingModule
   
   ],
+  entryComponents: [ConfirmActionSheetComponent],
   providers:[Geolocation],
   declarations: [HomePage, ConfirmActionSheetComponent]
 })
