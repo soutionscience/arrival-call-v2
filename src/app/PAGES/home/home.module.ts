@@ -15,10 +15,10 @@ import { ConfirmActionSheetComponent } from 'src/app/COMPONENTS/confirm-action-s
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
-    ConfirmActionSheetComponent
+    HomePageRoutingModule
+  
   ],
   providers:[Geolocation],
-  declarations: [HomePage]
+  declarations: [HomePage, ConfirmActionSheetComponent]
 })
 export class HomePageModule {}

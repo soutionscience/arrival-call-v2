@@ -18,6 +18,7 @@ markers: any [] =[];
 service: any;
 infowindow: any;
 places: any [];
+showAction: boolean
 //auto complete stuff
 
 
@@ -38,7 +39,8 @@ places: any [];
   ionViewWillEnter(){
  // this.initializeMap();
   this.getUser()
- this.getLocation()
+ this.getLocation();
+ this.showAction = false;
   }
   initializeMap(lat, lng){
 
@@ -74,9 +76,13 @@ places: any [];
     })
 
   }
+  reset(){
+    this.places =[];
+    this.showAction = false
+  }
 
   search(p){
-    !p? this.places =[]:
+    !p? this.reset():
     this.service = new google.maps.places.AutocompleteService();
     this.service.getQueryPredictions({input: p}, (results, status)=>{
     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -108,7 +114,8 @@ places: any [];
          this.map.setCenter(result.geometry.location);
          this.map.setZoom(15);
          this.places =[];
-         this.presentActionSheet()
+        //this.showAction = true;
+        this.presentActionSheet()
 
       }else{
         console.log('place not found ')
@@ -126,12 +133,25 @@ places: any [];
       buttons:[
         {text: 'Confirm',
          role: 'confirn',
-          icon:'phone',
+        icon:'call-outline',
         handler: ()=>{
       console.log('confirm')
     }},
     {
-      text: "Call me "
+      text: "Call me when near ",
+      role: "",
+      icon: 'time',
+      handler: ()=>{
+        console.log('timer')
+      }
+    },
+    {
+      text: "Cancel ",
+      role: "cancel",
+      icon: 'close',
+      handler: ()=>{
+        console.log('timer')
+      }
     }
       ]
     })
