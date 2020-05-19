@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./PAGES/home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'confirm',
+    loadChildren: () => import('./PAGES/confirm/confirm.module').then( m => m.ConfirmPageModule)
   }
+
 ];
 @NgModule({
   imports: [

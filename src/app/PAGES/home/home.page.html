@@ -40,5 +40,27 @@
 
   <div #map id="map"></div>
 
+  <div class="trips">
+    <ion-toolbar color="secondary">
+      <ion-title class="mytitle" size="small" slot="start">Previous Trips</ion-title>
+    </ion-toolbar>
+    <div class="trips">
+      <ion-list *ngIf="trips">
+        <ion-item lines="none" detail class="full-width"
+        *ngFor="let p of trips" 
+        (click)="selectPlace(p.stop.place)">
+      <!-- <ion-label class="ion-text-wrap">{{p.description}}</ion-label> -->
+      <ion-button expand="full" fill="clear">{{p.stop.name}}</ion-button>
+        
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
 
 </ion-content>
+<ion-footer class="ion-no-border" color="primary">
+  <ion-toolbar color="primary">
+    <ion-title class="mytitle">Footer - No Border</ion-title>
+  </ion-toolbar>
+</ion-footer>

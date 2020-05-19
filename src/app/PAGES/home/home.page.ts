@@ -5,6 +5,7 @@ import {} from 'google-maps';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
 import { ConfirmActionSheetComponent } from 'src/app/COMPONENTS/confirm-action-sheet/confirm-action-sheet.component';
+import { Trip } from 'src/app/shared/trips.model';
 
 
 
@@ -20,7 +21,10 @@ markers: any [] =[];
 service: any;
 infowindow: any;
 places: any [];
-showAction: boolean
+showAction: boolean;
+currentPosition:  {};
+destinationPosition: {}
+trips: Trip []; 
 //auto complete stuff
 
 
@@ -44,6 +48,7 @@ showAction: boolean
   this.getUser()
  this.getLocation();
  this.showAction = false;
+ this.getTrips()
   }
   initializeMap(lat, lng){
 
@@ -71,7 +76,8 @@ showAction: boolean
     this.geoLocation.getCurrentPosition().then((resp)=>{
     let lat = resp.coords.latitude;
     let lng = resp.coords.longitude
-    this.initializeMap(lat, lng)
+    this.initializeMap(lat, lng);
+    this.currentPosition = {lat, lng }
 
     }).catch((error)=>{
       // launch turn on internet connection pop up or user denied geolocation
@@ -117,7 +123,8 @@ showAction: boolean
          this.map.setCenter(result.geometry.location);
          this.map.setZoom(15);
          this.places =[];
-        //this.showAction = true;
+        this.destinationPosition ={name: result.name, place: p};
+       // this.saveTrip()
         this.presentActionSheet()
 
       }else{
@@ -166,6 +173,16 @@ showAction: boolean
      component: ConfirmActionSheetComponent
    });
    return await modal.present()
+ }
+
+ saveTrip(){
+   this.storageService.saveTrip(this.currentPosition, this.destinationPosition)
+ }
+ getTrips(){
+   this.storageService.getTrips().then((resp)=>{
+     this.trips = resp;
+     console.log('returned ', this.trips)
+   })
  }
   
 
