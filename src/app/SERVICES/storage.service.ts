@@ -31,7 +31,26 @@ private trips: Trip[] =[];
 
   }
 
+  saveMYTrips= (current, destination)=>{
+    this.getTrips().then((resp)=>{
+      if(resp == null){
+        this.saveTrip(current, destination)
+      }else{
+        let elementPosition = resp.map((x)=>{
+          return x.stop.place.id
+        }).indexOf(destination.place.id);
+        if(elementPosition == -1){
+          this.saveTrip(current, destination)
+        }else{
+          return;
+        }
+      }
+    })
+  }
+
   saveTrip = (current, destination)=>{
+
+
     let trip: Trip;
     trip ={
       start:{

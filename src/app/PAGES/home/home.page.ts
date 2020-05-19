@@ -70,7 +70,7 @@ trips: Trip [];
 
   }
   getUser(){
-    this.storageService.getUser().then((resp)=> {this.user = resp; console.log('user ', this.user)})
+    this.storageService.getUser().then((resp)=> {this.user = resp})
   }
   getLocation(){
     this.geoLocation.getCurrentPosition().then((resp)=>{
@@ -110,7 +110,7 @@ trips: Trip [];
     placeId: p.place_id,
     fields: ['name', 'formatted_address', 'place_id', 'geometry']
   };
-    console.log('the request ', request)
+    //console.log('the request ', request)
     this.service.getDetails(request,(result, status)=>{
       if (status === google.maps.places.PlacesServiceStatus.OK) {
       
@@ -124,7 +124,7 @@ trips: Trip [];
          this.map.setZoom(15);
          this.places =[];
         this.destinationPosition ={name: result.name, place: p};
-       // this.saveTrip()
+         this.saveTrip()
         this.presentActionSheet()
 
       }else{
@@ -176,12 +176,12 @@ trips: Trip [];
  }
 
  saveTrip(){
-   this.storageService.saveTrip(this.currentPosition, this.destinationPosition)
+   this.storageService.saveMYTrips(this.currentPosition, this.destinationPosition)
  }
  getTrips(){
    this.storageService.getTrips().then((resp)=>{
      this.trips = resp;
-     console.log('returned ', this.trips)
+    // console.log('returned ', this.trips)
    })
  }
   
