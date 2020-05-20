@@ -7,4 +7,5 @@ export interface Trip{
         name: string,
         place: any
     }
+    active?: boolean
 }

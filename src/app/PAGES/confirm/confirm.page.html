@@ -1,9 +1,83 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>confirm</ion-title>
+  <ion-toolbar color= "primary" class="top-toolbar">
+    <ion-buttons  slot="start">
+      <ion-back-button class="is-small"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="mytitle" size="small">Choose when to be called</ion-title>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-title class="mytitle" size="medium">Sarit center Rounderbout, Westlands Nairobi</ion-title>
+  
+  </ion-toolbar>
+<ion-toolbar color="primary" >
+  <ion-item slot="end" color="primary" lines="none">
+    <p class="mytitle">When you are</p>
+  </ion-item>
+</ion-toolbar>
+
+<ion-toolbar color="primary">
+  <ion-slides pager="true" [options]="slideOpts" >
+    <ion-slide>
+      <ion-card button>
+        <ion-card-header>
+         
+        
+            <ion-icon class="location-icon" name="location-sharp"></ion-icon>
+          
+        </ion-card-header>
+      
+        <ion-card-content>
+        <ion-text size="small">On location</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card button>
+        <ion-card-header>
+         
+          <ion-card-title>3</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+        <ion-text size="small">Minutes Away</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card button>
+        <ion-card-header>
+         
+          <ion-card-title>5</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+        <ion-text size="small">Minutes away</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card>
+        <ion-card-header class="time">
+         
+          <ion-icon name="time-outline"></ion-icon>
+        </ion-card-header>
+      
+        <ion-card-content>
+        <ion-text size="small">Set custom</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+
+  </ion-slides>
+</ion-toolbar>
+
+  
 </ion-header>
 
 <ion-content>
+  <div class="custome-time">
+    <ion-butto> Custom time</ion-button>
+  </div>
 
 </ion-content>

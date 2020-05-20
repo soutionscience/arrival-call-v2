@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { StorageService } from 'src/app/SERVICES/storage.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {} from 'google-maps';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
 import { ConfirmActionSheetComponent } from 'src/app/COMPONENTS/confirm-action-sheet/confirm-action-sheet.component';
 import { Trip } from 'src/app/shared/trips.model';
@@ -34,7 +34,8 @@ trips: Trip [];
   constructor( private storageService: StorageService, 
     private geoLocation: Geolocation,
     public actionSheet: ActionSheetController,
-    public modalCtrl: ModalController) { 
+    public modalCtrl: ModalController,
+    private navCtr: NavController) { 
 
   }
 
@@ -145,7 +146,7 @@ trips: Trip [];
          role: 'confirn',
         icon:'call-outline',
         handler: ()=>{
-      console.log('confirm')
+      this.confirm()
     }},
     {
       text: "Call me when near ",
@@ -183,6 +184,10 @@ trips: Trip [];
      this.trips = resp;
     // console.log('returned ', this.trips)
    })
+ }
+
+ confirm(){
+   this.navCtr.navigateForward('confirm')
  }
   
 
