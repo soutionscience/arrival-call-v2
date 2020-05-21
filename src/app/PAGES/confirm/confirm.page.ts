@@ -17,6 +17,7 @@ export class ConfirmPage implements OnInit {
     speed: 400
   };
   animals: string[] = ["Tiger", "Lion", "Elephant", "Fox", "Wolf"];
+  plants: string[]
  constructor(private pickerController: PickerController) { }
 
   ngOnInit() {
