@@ -17,7 +17,7 @@ export class ConfirmPage implements OnInit {
     speed: 400
   };
   animals: string[] = ["Tiger", "Lion", "Elephant", "Fox", "Wolf"];
-  plants: string[]
+  plants: string[] = ['cocoa', 'banana', 'potato', 'coconut']
  constructor(private pickerController: PickerController) { }
 
   ngOnInit() {
@@ -40,7 +40,11 @@ export class ConfirmPage implements OnInit {
       columns:[{
         name:'Animals',
         options:this.getColumnOptions()
-      }]
+      },
+    {
+      name: 'Plants',
+      options: this.getSecondColumnOptions()
+    }]
     };
 
     let picker = await this.pickerController.create(options);
@@ -54,6 +58,14 @@ export class ConfirmPage implements OnInit {
     });
     return options;
   }
+  getSecondColumnOptions(){
+    let options = []
+    this.plants.forEach(x=>{
+      options.push({text:x, value:x})
+    })
+    return options;
+  }
+
 
 
   // remember to check distance to determing geo boundary
