@@ -32,7 +32,7 @@
       </ion-card>
     </ion-slide>
     <ion-slide>
-      <ion-card button>
+      <ion-card button (click)="selectTime({hour: 0, min: 3})">
         <ion-card-header>
          
           <ion-card-title>3</ion-card-title>
@@ -56,7 +56,7 @@
       </ion-card>
     </ion-slide>
     <ion-slide>
-      <ion-card>
+      <ion-card button (click)="showPicker()">
         <ion-card-header class="time">
          
           <ion-icon name="time-outline"></ion-icon>
