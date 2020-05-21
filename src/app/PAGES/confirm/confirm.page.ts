@@ -19,6 +19,7 @@ export class ConfirmPage implements OnInit {
    // centeredSlides: true,
     speed: 400
   };
+  destination: string = 'Sarit center Rounderbout, Westlands Nairobi'
   animals: number[] = [0, 1, 2, 3,];
   plants: number[] = [0, 5, 10, 15, 20, 25,30, 35, 40, 45,50, 55, 60];
  constructor(private pickerController: PickerController, private alertCtrl: AlertController) { }
@@ -37,7 +38,7 @@ export class ConfirmPage implements OnInit {
         {
           text:'Ok',
           handler:(value:any) => {
-            console.log('value',value);
+            this.formatPickerValue(value)
           }
         }
       ],
@@ -86,26 +87,32 @@ export class ConfirmPage implements OnInit {
     options.push({text: 'Hr', val: null})
     return options
   }
+  // format selected time
+  formatPickerValue(value){
+    let time ={}
+    time ={hour: value.Hour.value, min: value.Minutes.value}
+    this.selectTime(time);
+  }
 
 
  //selected Time
  selectTime(time){
    this.selectedTime = {hour: time.hour, min: time.min}
    console.log(' selected ', this.selectedTime);
-   this.presentAlertConfirm()
+   this.presentAlertConfirm(this.selectedTime)
  }
 
  ///alert confirm
 
- async presentAlertConfirm(){
+ async presentAlertConfirm(time){
    const alert = await this.alertCtrl.create(
      {
        header: 'Confirm',
-       message: 'Alert you 3 mins before you arrive at Sarit center, rouderbut, westlands, Nairobi?',
+       message: `Alert you ${time.hour> 0? `${time.hour} hr(s) `: ''}<strong>${time.min>0? `${time.min} mins `: ''}</strong> before you arrive at <strong>${this.destination}</strong>?`,
        buttons:[{
         text: 'Cancel',
         role: 'cancel',
-        cssClass:'secondary',
+        cssClass:'myDanger',
         handler:()=>{
           console.log('cancelled')
         }

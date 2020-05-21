@@ -6,7 +6,7 @@
     <ion-title class="mytitle" size="small">Choose when to be called</ion-title>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-title class="mytitle" size="medium">Sarit center Rounderbout, Westlands Nairobi</ion-title>
+    <ion-title class="mytitle" size="medium">{{destination}}</ion-title>
   
   </ion-toolbar>
 <!-- <ion-toolbar color="primary" >
@@ -44,7 +44,7 @@
       </ion-card>
     </ion-slide>
     <ion-slide>
-      <ion-card button>
+      <ion-card button (click)="selectTime({hour: 0, min: 5})">
         <ion-card-header>
          
           <ion-card-title>5</ion-card-title>
