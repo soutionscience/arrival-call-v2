@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConfirmPageRoutingModule } from './confirm-routing.module';
 
 import { ConfirmPage } from './confirm.page';
+import { TimeSlidersComponent } from 'src/app/COMPONENTS/time-sliders/time-sliders.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,9 @@ import { ConfirmPage } from './confirm.page';
     FormsModule,
     IonicModule,
     ConfirmPageRoutingModule
+   
   ],
-  declarations: [ConfirmPage]
+  // providers:[TimeSlidersComponent],
+  declarations: [ConfirmPage, TimeSlidersComponent]
 })
 export class ConfirmPageModule {}
